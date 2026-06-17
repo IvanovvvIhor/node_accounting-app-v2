@@ -34,6 +34,11 @@ function createServer() {
 
   app.get('/users/:id', (req, res) => {
     const userId = Number(req.params.id);
+
+    if (!req.params.id || Number.isNaN(userId)) {
+      return res.status(400).json({ error: 'Invalid id' });
+    }
+
     const user = users.find((u) => u.id === userId);
 
     if (!user) {
@@ -45,6 +50,11 @@ function createServer() {
 
   app.delete('/users/:id', (req, res) => {
     const userId = Number(req.params.id);
+
+    if (!req.params.id || Number.isNaN(userId)) {
+      return res.status(400).json({ error: 'Invalid id' });
+    }
+
     const userExists = users.some((u) => u.id === userId);
 
     if (!userExists) {
@@ -58,6 +68,11 @@ function createServer() {
 
   app.patch('/users/:id', (req, res) => {
     const userId = Number(req.params.id);
+
+    if (!req.params.id || Number.isNaN(userId)) {
+      return res.status(400).json({ error: 'Invalid id' });
+    }
+
     const newName = req.body.name;
     const user = users.find((u) => u.id === userId);
 
@@ -112,7 +127,7 @@ function createServer() {
   app.post('/expenses', (req, res) => {
     const { userId, spentAt, title, amount, category, note } = req.body;
 
-    if (!userId || !title || amount === undefined || !category) {
+    if (!userId || !title || amount === undefined || !category || !spentAt) {
       return res.status(400).json({ error: 'Required fields are missing' });
     }
 
@@ -139,6 +154,11 @@ function createServer() {
 
   app.get('/expenses/:id', (req, res) => {
     const idExpenses = Number(req.params.id);
+
+    if (!req.params.id || Number.isNaN(idExpenses)) {
+      return res.status(400).json({ error: 'Invalid id' });
+    }
+
     const expense = expenses.find((e) => e.id === idExpenses);
 
     if (!expense) {
@@ -150,6 +170,11 @@ function createServer() {
 
   app.delete('/expenses/:id', (req, res) => {
     const idExpenses = Number(req.params.id);
+
+    if (!req.params.id || Number.isNaN(idExpenses)) {
+      return res.status(400).json({ error: 'Invalid id' });
+    }
+
     const expenseExists = expenses.some((e) => e.id === idExpenses);
 
     if (!expenseExists) {
@@ -163,6 +188,11 @@ function createServer() {
 
   app.patch('/expenses/:id', (req, res) => {
     const idExpenses = Number(req.params.id);
+
+    if (!req.params.id || Number.isNaN(idExpenses)) {
+      return res.status(400).json({ error: 'Invalid id' });
+    }
+
     const expense = expenses.find((e) => e.id === idExpenses);
 
     if (!expense) {
